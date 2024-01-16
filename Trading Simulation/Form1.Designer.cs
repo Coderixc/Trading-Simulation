@@ -30,13 +30,14 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox1_ltp = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.dgv_trades = new System.Windows.Forms.DataGridView();
             this.button3_sell = new System.Windows.Forms.Button();
             this.button2_buy = new System.Windows.Forms.Button();
             this.button1_starttradong = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1_ltp = new System.Windows.Forms.TextBox();
+            this.panel2_chart = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_trades)).BeginInit();
@@ -48,6 +49,8 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel2_chart, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(10);
@@ -74,6 +77,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1554, 285);
             this.panel1.TabIndex = 0;
+            // 
+            // textBox1_ltp
+            // 
+            this.textBox1_ltp.Location = new System.Drawing.Point(415, 12);
+            this.textBox1_ltp.Name = "textBox1_ltp";
+            this.textBox1_ltp.ReadOnly = true;
+            this.textBox1_ltp.Size = new System.Drawing.Size(184, 31);
+            this.textBox1_ltp.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(346, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 25);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Tick";
             // 
             // dgv_trades
             // 
@@ -125,23 +146,23 @@
             this.button1_starttradong.UseVisualStyleBackColor = true;
             this.button1_starttradong.Click += new System.EventHandler(this.button1_starttradong_Click);
             // 
-            // label1
+            // panel2_chart
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(346, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 25);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Tick";
+            this.panel2_chart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel2_chart.Location = new System.Drawing.Point(12, 12);
+            this.panel2_chart.Margin = new System.Windows.Forms.Padding(12);
+            this.panel2_chart.Name = "panel2_chart";
+            this.panel2_chart.Size = new System.Drawing.Size(1546, 291);
+            this.panel2_chart.TabIndex = 1;
             // 
-            // textBox1_ltp
+            // panel2
             // 
-            this.textBox1_ltp.Location = new System.Drawing.Point(415, 12);
-            this.textBox1_ltp.Name = "textBox1_ltp";
-            this.textBox1_ltp.ReadOnly = true;
-            this.textBox1_ltp.Size = new System.Drawing.Size(184, 31);
-            this.textBox1_ltp.TabIndex = 5;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel2.Location = new System.Drawing.Point(20, 650);
+            this.panel2.Margin = new System.Windows.Forms.Padding(20);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1544, 277);
+            this.panel2.TabIndex = 2;
             // 
             // Form1
             // 
@@ -150,7 +171,7 @@
             this.ClientSize = new System.Drawing.Size(1584, 947);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Trading X";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -167,8 +188,9 @@
         private Button button3_sell;
         private Button button2_buy;
         private Button button1_starttradong;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private TextBox textBox1_ltp;
         private Label label1;
+        private Panel panel2_chart;
+        private Panel panel2;
     }
 }
