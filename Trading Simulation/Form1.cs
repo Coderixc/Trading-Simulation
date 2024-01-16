@@ -18,6 +18,7 @@ namespace Trading_Simulation
         #region  : SECTION DEFINE VARIABLES
 
         private bool mFlag_IStradingStarted= false;
+        private Chart chart;
 
 
 
@@ -36,27 +37,108 @@ namespace Trading_Simulation
         public Form1()
         {
             InitializeComponent();
+            if( ! ConfigureUser() )
+            {
+
+
+                //Returna and Close
+            }
+            AddLog("Starting Application");
+
+
 
             this.Dt_trades_Execution = new DataTable();
             random = new Random();
-            liveQuote = new double[1];   
+            liveQuote = new double[1];
+            AddLog("Initializing Setup");
 
 
 
             // initialise all Functions here..
             Design_Trades_execution();
+            AddLog("Loading Trades Execution Trading Environment");
             Set_timer();
-            StartPlotiing();
+            AddLog("Feed Started");
+            //StartPlotiing();
         }
 
-        private  void StartPlotiing()
+        private void AddLog(string Message)
         {
-            // Add the FormsPlot
+            listBox1_log.Items.Add(DateTime.Now.ToString() + "  " + Message);
+
+        }
+
+        #region SECTION : AUTHENTICATE USER
+
+        private bool  ConfigureUser()
+        {
+            bool isAuthorized = false;
+
+            try
+            {
+                var b = new FormAuthenticate(); 
+
+            }
+            catch
+            {
+                Debug.WriteLine($"Failed to get LTP - Tick : {ex.Message}");
+            }
+
+            return isAuthorized;
+
+        }
+
+
+
+        #endregion
+
+
+
+        private void StartPlotiing()
+        {
+
+            try
+            {
+                //Add the FormsPlot
+                //Chart chart = new Chart();
+                //chart.Dock = DockStyle.Fill;
+                Chart chart = CreateChart();
+
+
+                panel2_chart.Controls.Add(chart);
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to get LTP - Tick : {ex.Message}");
+            }
+
+        }
+
+        private Chart CreateChart()
+        {
+            // Create a new chart
             Chart chart = new Chart();
             chart.Dock = DockStyle.Fill;
 
+            // Create a new series for the chart
+            Series series = new Series("Sample Series");
+            series.ChartType = SeriesChartType.Line;
 
-            panel2_chart.Controls.Add(chart);
+            // Add data points to the series
+            series.Points.AddXY("Category 1", 10);
+            series.Points.AddXY("Category 2", 20);
+            series.Points.AddXY("Category 3", 15);
+            series.Points.AddXY("Category 4", 25);
+
+            // Add the series to the chart
+            chart.Series.Add(series);
+
+            // Customize chart appearance if needed
+            //chart.ChartAreas[0].AxisX.Title = "Categories";
+            //chart.ChartAreas[0].AxisY.Title = "Values";
+
+            return chart;
         }
 
         private void Set_timer()
@@ -249,6 +331,9 @@ namespace Trading_Simulation
 
                 // Add the DataRow to the DataTable
                 dt.Rows.Add(newRow);
+
+                AddLog($"NEW Trades Entry tsym:{symbol} , price : {price} , OrderType : {ordertype }, Qty : {quantity}  ");
+
             }
             catch (Exception ex)
             {
@@ -260,11 +345,16 @@ namespace Trading_Simulation
         {
             if (mFlag_IStradingStarted == false)
             {
+                AddLog("User Clicked Start Trading");
+
+
                 //Start Trading mFlag_tradingStarted = True
                 mFlag_IStradingStarted = true;
 
                 Timer_feed.Start();
+                AddLog("Feed Started");
                 Timer_trades.Start();
+                AddLog("Ready to Take New Trades");
             }
 
         }
@@ -295,6 +385,9 @@ namespace Trading_Simulation
             }
         }
     }
+
+
+
 
     public class Status
     {

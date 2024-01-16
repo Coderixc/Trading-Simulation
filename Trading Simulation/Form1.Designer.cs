@@ -38,9 +38,11 @@
             this.button1_starttradong = new System.Windows.Forms.Button();
             this.panel2_chart = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.listBox1_log = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_trades)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -149,20 +151,34 @@
             // panel2_chart
             // 
             this.panel2_chart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel2_chart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2_chart.Location = new System.Drawing.Point(12, 12);
             this.panel2_chart.Margin = new System.Windows.Forms.Padding(12);
             this.panel2_chart.Name = "panel2_chart";
-            this.panel2_chart.Size = new System.Drawing.Size(1546, 291);
+            this.panel2_chart.Size = new System.Drawing.Size(1560, 291);
             this.panel2_chart.TabIndex = 1;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel2.Controls.Add(this.listBox1_log);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(20, 650);
             this.panel2.Margin = new System.Windows.Forms.Padding(20);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1544, 277);
             this.panel2.TabIndex = 2;
+            // 
+            // listBox1_log
+            // 
+            this.listBox1_log.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.listBox1_log.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listBox1_log.FormattingEnabled = true;
+            this.listBox1_log.ItemHeight = 25;
+            this.listBox1_log.Location = new System.Drawing.Point(0, 148);
+            this.listBox1_log.Name = "listBox1_log";
+            this.listBox1_log.Size = new System.Drawing.Size(1544, 129);
+            this.listBox1_log.TabIndex = 0;
             // 
             // Form1
             // 
@@ -176,6 +192,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_trades)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -192,5 +209,6 @@
         private Label label1;
         private Panel panel2_chart;
         private Panel panel2;
+        private ListBox listBox1_log;
     }
 }
