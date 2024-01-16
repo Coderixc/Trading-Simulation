@@ -18,8 +18,8 @@ namespace Trading_Simulation
         #region  : SECTION DEFINE VARIABLES
 
         private bool mFlag_IStradingStarted= false;
+        private bool mFlag_IsUserID_Validated = false;
         private Chart chart;
-
 
 
         private DataTable Dt_trades_Execution;
@@ -30,7 +30,6 @@ namespace Trading_Simulation
         public static System.Windows.Forms.Timer Timer_trades;
 
         public double[] liveQuote; 
-
 
         #endregion
 
@@ -77,14 +76,57 @@ namespace Trading_Simulation
             try
             {
                 var b = new FormAuthenticate(); 
+                b.eventsubmit +=   new EventHandler(Login__SubmitButton);
+                b.eventclose += new EventHandler(Login_CLOSE);
+                b.ShowDialog();
+
+
 
             }
-            catch
+            catch (Exception ex)
             {
                 Debug.WriteLine($"Failed to get LTP - Tick : {ex.Message}");
             }
 
             return isAuthorized;
+
+        }
+
+        private void Login__SubmitButton(object sender, EventArgs e)
+        {
+            var Y = (bool)sender;
+            try
+            {
+                if(Y == true)
+                {
+                    AddLog("User is Validated");
+                    mFlag_IsUserID_Validated = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+        }
+
+        private void Login_CLOSE(object sender, EventArgs e)
+        {
+            var Y = (string)sender;
+            try
+            {
+                if(Y.Equals("Cancel"))
+                {
+                    //TODO : FORCEFULLY CLOSE AND EXIT
+
+                    System.Environment.Exit(0); 
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
 
         }
 
@@ -292,6 +334,35 @@ namespace Trading_Simulation
             }
 
             update_LTP_in_gui();
+            Change_Pnl_color();
+        }
+
+        private void Change_Pnl_color()
+        {
+            try
+            {
+
+
+                foreach(DataGridViewRow trade in this.dgv_trades.Rows)
+                {
+                    double pnl = Convert.ToDouble(trade.Cells["Pnl"].Value);
+
+                    if(pnl >  0.0)
+                    {
+
+                        trade.Cells["Pnl"].Style.ForeColor = Color.DarkGreen;
+                    }
+                    else
+                    {
+
+                        trade.Cells["Pnl"].Style.ForeColor = Color.Red;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to Load Delegate : {ex.Message}");
+            }
         }
 
 
@@ -343,6 +414,12 @@ namespace Trading_Simulation
 
         private void button1_starttradong_Click(object sender, EventArgs e)
         {
+            if(mFlag_IsUserID_Validated== false)
+            {
+                MessageBox.Show("User Credential Not Registered");
+                return;
+            }
+
             if (mFlag_IStradingStarted == false)
             {
                 AddLog("User Clicked Start Trading");
@@ -361,7 +438,12 @@ namespace Trading_Simulation
 
         private void button2_buy_Click(object sender, EventArgs e)
         {
-            if(mFlag_IStradingStarted== true)
+            if (mFlag_IsUserID_Validated == false)
+            {
+                MessageBox.Show("User Credential Not Registered");
+                return;
+            }
+            if (mFlag_IStradingStarted== true)
             {
                 Generate_new_trades(ref this.Dt_trades_Execution, OrderType.mBUY);
             }
@@ -375,6 +457,11 @@ namespace Trading_Simulation
 
         private void button3_sell_Click(object sender, EventArgs e)
         {
+            if (mFlag_IsUserID_Validated == false)
+            {
+                MessageBox.Show("User Credential Not Registered");
+                return;
+            }
             if (mFlag_IStradingStarted == true)
             {
                 Generate_new_trades(ref this.Dt_trades_Execution, OrderType.mSELL);
