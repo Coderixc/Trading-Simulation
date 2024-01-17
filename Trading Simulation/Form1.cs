@@ -354,27 +354,17 @@ namespace Trading_Simulation
         }
         #endregion
 
-
-
+        #region SECTION : Func() Will responsible to Generate New Trades when use Click THe Controls . This Code has tendency to Bifurcate Buy/Suy signals
         private void Generate_new_trades(ref DataTable dt , string ordertype)
         {
-
             try
             {
-
                 // Create a new DataRow
                 DataRow newRow = dt.NewRow();
-
-
                 string symbol = "NIFTY 50";
                 Int64 quantity = 1;
 
-                //Random Number as a Stocks Entry Price
-                Random random = new Random();
-
-                // Generating a random number between 21650 and 21670 (inclusive)
-                double price = Math.Round( random.NextDouble() * (21670 - 21650) + 21650 , 2);
-
+                double price = liveQuote[0];
 
                 // Set values for each column
                 newRow["Symbol"] = symbol;
@@ -388,31 +378,31 @@ namespace Trading_Simulation
                 newRow["ExitPrice"] = -1;
                 newRow["ExitTime"] = -1;
 
-
                 // Add the DataRow to the DataTable
                 dt.Rows.Add(newRow);
-
                 AddLog($"NEW Trades Entry tsym:{symbol} , price : {price} , OrderType : {ordertype }, Qty : {quantity}  ");
 
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Failed to Load Delegate : {ex.Message}");
+                AddLog($"Error While Taking New Trades , Please Close ");
             }
         }
+        #endregion
 
+        #region SECTION : EVENT - Call Func() When Trading Button is Clicked
         private void button1_starttradong_Click(object sender, EventArgs e)
         {
             if(mFlag_IsUserID_Validated== false)
             {
-                MessageBox.Show("User Credential Not Registered");
+                MessageBox.Show("User Credential Not Registered.. Please close and Restart Again");
                 return;
             }
 
             if (mFlag_IStradingStarted == false)
             {
                 AddLog("User Clicked Start Trading");
-
 
                 //Start Trading mFlag_tradingStarted = True
                 mFlag_IStradingStarted = true;
@@ -422,8 +412,10 @@ namespace Trading_Simulation
                 Timer_trades.Start();
                 AddLog("Ready to Take New Trades");
             }
-
         }
+        #endregion
+
+        #region SECTION : EVENT - Call Func() When BUY Button is Clicked
 
         private void button2_buy_Click(object sender, EventArgs e)
         {
@@ -432,6 +424,7 @@ namespace Trading_Simulation
                 MessageBox.Show("User Credential Not Registered");
                 return;
             }
+
             if (mFlag_IStradingStarted== true)
             {
                 Generate_new_trades(ref this.Dt_trades_Execution, OrderType.mBUY);
@@ -440,10 +433,10 @@ namespace Trading_Simulation
             {
                 MessageBox.Show("Please Start Trading... Than Proceed");
             }
-
-
         }
+        #endregion
 
+        #region SECTION : EVENT - Call Func() When SELL Button is Clicked
         private void button3_sell_Click(object sender, EventArgs e)
         {
             if (mFlag_IsUserID_Validated == false)
@@ -460,23 +453,27 @@ namespace Trading_Simulation
                 MessageBox.Show("Please Start Trading... Than Proceed");
             }
         }
+        #endregion
     }
 
 
 
-
+    #region SECTION: This Class variable will be used In Status Field (CLASS WITH CONST VARIBALE) 
     public class Status
     {
         public const string  mOpen  = "Open";
         public const string mClose  = "Close";
 
     }
+    #endregion
 
+    #region SECTION: This Class variable will be used to classify Fields variable (CLASS WITH CONST VARIBALE) 
     public class OrderType
     {
         public const string mBUY = "B";
         public const string mSELL = "S";
     }
+    #endregion
 
-    
+
 }
