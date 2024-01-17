@@ -119,9 +119,9 @@
             // 
             // button3_sell
             // 
-            this.button3_sell.Location = new System.Drawing.Point(1276, 14);
+            this.button3_sell.Location = new System.Drawing.Point(1395, 8);
             this.button3_sell.Name = "button3_sell";
-            this.button3_sell.Size = new System.Drawing.Size(213, 47);
+            this.button3_sell.Size = new System.Drawing.Size(145, 47);
             this.button3_sell.TabIndex = 2;
             this.button3_sell.Text = "Sell";
             this.button3_sell.UseVisualStyleBackColor = true;
@@ -129,9 +129,9 @@
             // 
             // button2_buy
             // 
-            this.button2_buy.Location = new System.Drawing.Point(950, 14);
+            this.button2_buy.Location = new System.Drawing.Point(1226, 8);
             this.button2_buy.Name = "button2_buy";
-            this.button2_buy.Size = new System.Drawing.Size(213, 47);
+            this.button2_buy.Size = new System.Drawing.Size(165, 47);
             this.button2_buy.TabIndex = 1;
             this.button2_buy.Text = "Buy";
             this.button2_buy.UseVisualStyleBackColor = true;

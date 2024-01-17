@@ -15,42 +15,34 @@ namespace Trading_Simulation
 {
     public partial class Form1 : Form
     {
-        #region  : SECTION DEFINE VARIABLES
-
+        #region SECTION : DEFINE VARIABLES
         private bool mFlag_IStradingStarted= false;
         private bool mFlag_IsUserID_Validated = false;
         private Chart chart;
 
-
         private DataTable Dt_trades_Execution;
-        Random random;
-
+        Random SumulateTick;
 
         public static System.Windows.Forms.Timer Timer_feed;
         public static System.Windows.Forms.Timer Timer_trades;
 
-        public double[] liveQuote; 
-
+        public double[] liveQuote;
         #endregion
 
+        #region SECTION : INIT Variables + Method in  CONSTRUCTOR
         public Form1()
         {
             InitializeComponent();
             if( ! ConfigureUser() )
             {
-
-
                 //Returna and Close
             }
             AddLog("Starting Application");
 
-
-
             this.Dt_trades_Execution = new DataTable();
-            random = new Random();
+            SumulateTick = new Random();
             liveQuote = new double[1];
             AddLog("Initializing Setup");
-
 
 
             // initialise all Functions here..
@@ -60,16 +52,19 @@ namespace Trading_Simulation
             AddLog("Feed Started");
             //StartPlotiing();
         }
+        #endregion
 
+        #region SECTION : Function will be responsible to dispaly event in log box (GUI)
         private void AddLog(string Message)
         {
             listBox1_log.Items.Add(DateTime.Now.ToString() + "  " + Message);
-
         }
+        #endregion
 
-        #region SECTION : AUTHENTICATE USER
+        #region SECTION : AUTHENTICATE USER (If userid registered , Authenticate and Allow to use Trading Platform)
 
-        private bool  ConfigureUser()
+        #region SECTION : Configure USER CREDENTIAl
+        private bool ConfigureUser()
         {
             bool isAuthorized = false;
 
@@ -79,19 +74,16 @@ namespace Trading_Simulation
                 b.eventsubmit +=   new EventHandler(Login__SubmitButton);
                 b.eventclose += new EventHandler(Login_CLOSE);
                 b.ShowDialog();
-
-
-
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Failed to get LTP - Tick : {ex.Message}");
             }
-
             return isAuthorized;
-
         }
+        #endregion
 
+        #region SECTION : EVENT CODE TO HANDLE SUBMIT BUTTON
         private void Login__SubmitButton(object sender, EventArgs e)
         {
             var Y = (bool)sender;
@@ -105,12 +97,12 @@ namespace Trading_Simulation
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine($"Event Failed - SUBMIT Button : {ex.Message}");
             }
-
-
         }
+        #endregion
 
+        #region SECTION : EVENT CODE TO HANDLE CLOSE/EXIT BUTTON
         private void Login_CLOSE(object sender, EventArgs e)
         {
             var Y = (string)sender;
@@ -119,22 +111,17 @@ namespace Trading_Simulation
                 if(Y.Equals("Cancel"))
                 {
                     //TODO : FORCEFULLY CLOSE AND EXIT
-
                     System.Environment.Exit(0); 
                 }
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine($"Event Failed - CLOSE/EXIT Button : {ex.Message}");
             }
-
         }
-
-
-
         #endregion
 
-
+        #endregion
 
         private void StartPlotiing()
         {
@@ -183,6 +170,7 @@ namespace Trading_Simulation
             return chart;
         }
 
+        #region SECTION : TIMER-? SET ALL PARAMETER TO ACTIVATE TIMER (SET EXECUTION PATH FOR SUB FUNCTION)
         private void Set_timer()
         {
             Timer_feed = new System.Windows.Forms.Timer();
@@ -194,13 +182,12 @@ namespace Trading_Simulation
             Timer_trades.Interval = 2000;
             Timer_trades.Tick += new System.EventHandler(this.Event_update_opentrades); //Method attached
         }
+        #endregion
 
-
+        #region SECTION : DESIGN STRUCTURE FOR TRADES EXECUTION & Bind To DataGrid View To Display
         private void Design_Trades_execution()
         {
-            // add Trading Columns  In Data Table
-
-            // Add columns to the DataTable
+            // Add Trading Columns  In Data Table
             Dt_trades_Execution.Columns.Add("Symbol", typeof(string));
             Dt_trades_Execution.Columns.Add("Quantity", typeof(int));
             Dt_trades_Execution.Columns.Add("Price", typeof(double));
@@ -212,71 +199,78 @@ namespace Trading_Simulation
             Dt_trades_Execution.Columns.Add("ExitPrice", typeof(double));
             Dt_trades_Execution.Columns.Add("ExitTime", typeof(string));
 
-
-
             // bind with view
             dgv_trades.DataSource = Dt_trades_Execution;
-
         }
+        #endregion
 
+        #region SECTION : TIMER FUNC()  - SIMULATE STOCKS PRICE  - USING  Random Price Class
+        /// <summary>
+        /// get_live_tick() will simulate Live Tick price .  you can Chnage it with API , Or Web Socked Endpoints 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Event_update_tick (object sender, EventArgs e)
         {
             get_live_tick();
         }
+        #endregion
 
+        #region SECTION : TIMER FUNC() - THIS  Function will be Responsible to updated LTP and Also calculate PNL of Open Trades
+        /// <summary>
+        /// update_trades_pnl()  - This Function will handled All Pnl and Exit Calculation of open Trades
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Event_update_opentrades(object sender, EventArgs e)
         {
             update_trades_pnl();
         }
+        #endregion
 
-
-
-        private double get_live_tick()
+        #region SECTION:  This func() will act as Live Feed or Market Feed , Where  I have used Array to Store Price
+        /// <summary>
+        /// THis is the code are ,  if Socket is Active  Configure it and use, And You can Also use API to get Connected and Get market Feed
+        /// </summary>
+        private void get_live_tick()
         {
-            double ltp = 0.0;
             try
             {
-
-                ltp = Math.Round(random.NextDouble() * (21670 - 21650) + 21650, 2);
-
-                liveQuote[0] = ltp;
-
-                //Console.WriteLine("Ltp is  ", ltp);
-
-                //update_LTP_in_gui();
-
-                //this.Invoke((MethodInvoker)delegate
-                //{
-                //    update_LTP_in_gui();
-                //});
+                liveQuote[0] = Math.Round(SumulateTick.NextDouble() * (21670 - 21650) + 21650, 2);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Failed to get LTP - Tick : {ex.Message}");
             }
-
-            return ltp;
-
         }
+        #endregion
 
+        #region SECTION: Func() responsible to Update LTP (tick) in Gui Above Trades Execution (in text Box)
         private void update_LTP_in_gui()
         {
             try
             {
-                double price = get_live_tick();
-
+                double price = liveQuote[0];
                 if(price != 0.0)
                 {
                     this.textBox1_ltp.Text = price.ToString();
                 }
-
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Failed to update lrp in View : {ex.Message}");
             }
         }
+        #endregion
 
+        #region SECTION :Func() will calculaet PNL 
+        /// <summary>
+        /// Func()  Calculate PNL
+        /// </summary>
+        /// <param name="EntryPrice"></param>
+        /// <param name="ltp"></param>
+        /// <param name="Quantity"></param>
+        /// <returns></returns>
         private double calculate_pnl(double EntryPrice, double ltp , int Quantity)
         {
            double  res = 0.0;
@@ -291,25 +285,29 @@ namespace Trading_Simulation
             {
                 Debug.WriteLine($"Failed to update ltp of open Trades: {ex.Message}");
             }
-
             return res;
         }
+        #endregion
 
-
+        #region SECTION :Func() will Update PNL in Back End  for OPEN Trades (Status equals to open)
         private void update_trades_pnl()
         {
             foreach (DataRow row in this.Dt_trades_Execution.Rows)
             {
                 if (row["Status"].ToString() == Status.mOpen)
                 {
-
                     //Get LTP
-
                     double entryprice = Convert.ToDouble(row["Price"]);
                     int quantity = Convert.ToInt32(row["Quantity"]);
                     double ltp = liveQuote[0];
-                    string orderType  =  row["OrderType"].ToString();
 
+
+                    if(ltp==0.0)
+                    {
+                        continue;
+                    }
+
+                    string orderType  = row["OrderType"].ToString();
 
                     double pnl = 0.0;
                     if(orderType == OrderType.mBUY)
@@ -320,41 +318,31 @@ namespace Trading_Simulation
                     {
                         pnl = calculate_pnl(ltp, entryprice, quantity);
                     }
-
-
-
-
                     row["Ltp"] = ltp;
                     row["PnL"] = pnl;
-                    // Optionally, you can update other fields as needed
-                    // row["ExitTime"] = DateTime.Now;
-                    // row["Status"] = "Closed";
-                    ; // Exit the loop once the row is updated
                 }
             }
 
-            update_LTP_in_gui();
-            Change_Pnl_color();
+            this.update_LTP_in_gui();
+            this.Change_Pnl_color();
         }
+        #endregion
 
+        #region SECTION :Func() will Change Pnl Color in View  (GUI)
         private void Change_Pnl_color()
         {
             try
             {
-
-
                 foreach(DataGridViewRow trade in this.dgv_trades.Rows)
                 {
                     double pnl = Convert.ToDouble(trade.Cells["Pnl"].Value);
 
                     if(pnl >  0.0)
                     {
-
                         trade.Cells["Pnl"].Style.ForeColor = Color.DarkGreen;
                     }
                     else
                     {
-
                         trade.Cells["Pnl"].Style.ForeColor = Color.Red;
                     }
                 }
@@ -364,6 +352,7 @@ namespace Trading_Simulation
                 Debug.WriteLine($"Failed to Load Delegate : {ex.Message}");
             }
         }
+        #endregion
 
 
 
