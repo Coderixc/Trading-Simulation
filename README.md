@@ -15,8 +15,7 @@ This is the first screen of the trading simulation, where user credentials are v
 <img width="263" alt="login Panel" src="https://github.com/Coderixc/Trading-Simulation/assets/40321363/b07dffad-8d9a-4e1e-b28d-ec30bd5864cf">
 
 
-After successfully validating the user credentials, users can proceed to explore the trading simulation. Refer to the documentation for detailed information on using the various features and functionalities.
-
+After successfully validating the user credentials, users can proceed to explore the trading simulation. 
 
 
 
@@ -24,7 +23,7 @@ After successfully validating the user credentials, users can proceed to explore
 
 The second screen of the trading simulation opens once the user is successfully validated. It features different layouts for:
 
-- **Charting:** (Note: Charting functionality is not completed due to the removal of Charting Control from .Net 3.0 by Microsoft.)
+- **Charting:** (Note: Charting functionality is not completed due to the removal of Charting Control from .Net 6.0 by Microsoft.)
 - **Trades Execution:** Contains columns for various trade-related information.
 - **Log Forms:** Display logs of trading activities.
 
