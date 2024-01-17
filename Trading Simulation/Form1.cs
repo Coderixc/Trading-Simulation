@@ -6,7 +6,7 @@ using System.Data;
 using System.Diagnostics;
 
 using System.Windows.Forms.DataVisualization.Charting;
-using ScottPlot.WinForms;
+//using ScottPlot.Control;
 
 
 
@@ -82,7 +82,9 @@ namespace Trading_Simulation
 
             try
             {
-                var b = new FormAuthenticate(); 
+                var b = new FormAuthenticate();
+                b.Text = "Trading Platform Login Pannel";
+                b.Name = "Trading Platform Login Pannel";
                 b.eventsubmit +=   new EventHandler(Login__SubmitButton);
                 b.eventclose += new EventHandler(Login_CLOSE);
                 b.ShowDialog();
@@ -135,20 +137,21 @@ namespace Trading_Simulation
 
         #endregion
 
+        #region SECTION : USING SCATTER PLOT TO DISPLAY CHARTS
         private void StartPlotiing()
         {
 
             try
             {
-                formsPlot1 = new() { Dock = DockStyle.Fill };
-                this.Controls.Add(formsPlot1);
+                //ScottPlot formsPlot1 = new() { Dock = DockStyle.Fill };
+                //this.Controls.Add(formsPlot1);
 
-                // Add sample data to the plot
-                double[] data = ScottPlot.Generate.Sin();
-                formsPlot1.Plot.Add.Signal(data);
-                formsPlot1.Refresh();
+                //// Add sample data to the plot
+                //double[] data = ScottPlot.Generate.Sin();
+                //formsPlot1.Plot.Add.Signal(data);
+                //formsPlot1.Refresh();
 
-                panel2_chart.Controls.Add(formsPlot1);
+                //panel2_chart.Controls.Add(formsPlot1);
 
             }
             catch (Exception ex)
@@ -158,6 +161,9 @@ namespace Trading_Simulation
 
         }
 
+        #endregion
+
+        #region SECTION : using Default Windows Charts
         private Chart CreateChart()
         {
             // Create a new chart
@@ -183,6 +189,7 @@ namespace Trading_Simulation
 
             return chart;
         }
+        #endregion
 
         #region SECTION : TIMER-? SET ALL PARAMETER TO ACTIVATE TIMER (SET EXECUTION PATH FOR SUB FUNCTION)
         private void Set_timer()
@@ -417,6 +424,7 @@ namespace Trading_Simulation
             if (mFlag_IStradingStarted == false)
             {
                 AddLog("User Clicked Start Trading");
+                button1_starttradong.Text = "STOP TRADING";
 
                 //Start Trading mFlag_tradingStarted = True
                 mFlag_IStradingStarted = true;
@@ -425,6 +433,27 @@ namespace Trading_Simulation
                 AddLog("Feed Started");
                 Timer_trades.Start();
                 AddLog("Ready to Take New Trades");
+            }
+            
+            else if (mFlag_IStradingStarted == true)
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you sure to STOP TRADING Yes/No", "Delete", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    mFlag_IStradingStarted= false;
+                    button1_starttradong.Text = "START TRADING";
+
+
+                    AddLog("User Clicked STOP Trading");
+
+                    //Start Trading mFlag_tradingStarted = True
+                    mFlag_IStradingStarted = false;
+
+                    Timer_feed.Stop();
+                    AddLog("Feed Stoped");
+                    Timer_trades.Stop();
+                    AddLog("Trade Execution Stopped");
+                }
             }
         }
         #endregion
