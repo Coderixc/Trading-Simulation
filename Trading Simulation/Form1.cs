@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 
 using System.Windows.Forms.DataVisualization.Charting;
+using ScottPlot.WinForms;
 
 
 
@@ -18,7 +19,8 @@ namespace Trading_Simulation
         #region SECTION : DEFINE VARIABLES
         private bool mFlag_IStradingStarted= false;
         private bool mFlag_IsUserID_Validated = false;
-        private Chart chart;
+
+
 
         private DataTable Dt_trades_Execution;
         Random SumulateTick;
@@ -45,12 +47,22 @@ namespace Trading_Simulation
             AddLog("Initializing Setup");
 
 
-            // initialise all Functions here..
-            Design_Trades_execution();
-            AddLog("Loading Trades Execution Trading Environment");
-            Set_timer();
-            AddLog("Feed Started");
-            //StartPlotiing();
+            if (mFlag_IsUserID_Validated)
+            {
+                // initialise all Functions here..
+                Design_Trades_execution();
+                AddLog("Loading Trades Execution Trading Environment");
+                Set_timer();
+                AddLog("Feed Started");
+                //StartPlotiing();
+
+                StartPlotiing();
+            }
+            else
+            {
+                AddLog("Failed to Start -Feed");
+                AddLog("Failed to Load Trades Execution ");
+            }
         }
         #endregion
 
@@ -128,13 +140,15 @@ namespace Trading_Simulation
 
             try
             {
-                //Add the FormsPlot
-                //Chart chart = new Chart();
-                //chart.Dock = DockStyle.Fill;
-                Chart chart = CreateChart();
+                formsPlot1 = new() { Dock = DockStyle.Fill };
+                this.Controls.Add(formsPlot1);
 
+                // Add sample data to the plot
+                double[] data = ScottPlot.Generate.Sin();
+                formsPlot1.Plot.Add.Signal(data);
+                formsPlot1.Refresh();
 
-                panel2_chart.Controls.Add(chart);
+                panel2_chart.Controls.Add(formsPlot1);
 
             }
             catch (Exception ex)

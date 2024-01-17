@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label_UserID = new System.Windows.Forms.Label();
-            this.Password = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2_password = new System.Windows.Forms.TextBox();
-            this.button1_submit = new System.Windows.Forms.Button();
             this.button2_cancel = new System.Windows.Forms.Button();
+            this.button1_submit = new System.Windows.Forms.Button();
+            this.textBox2_password = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Password = new System.Windows.Forms.Label();
+            this.label_UserID = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,39 +54,15 @@
             this.panel1.Size = new System.Drawing.Size(493, 340);
             this.panel1.TabIndex = 0;
             // 
-            // label_UserID
+            // button2_cancel
             // 
-            this.label_UserID.AutoSize = true;
-            this.label_UserID.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label_UserID.Location = new System.Drawing.Point(36, 111);
-            this.label_UserID.Name = "label_UserID";
-            this.label_UserID.Size = new System.Drawing.Size(70, 25);
-            this.label_UserID.TabIndex = 0;
-            this.label_UserID.Text = "UserID ";
-            // 
-            // Password
-            // 
-            this.Password.AutoSize = true;
-            this.Password.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Password.Location = new System.Drawing.Point(13, 169);
-            this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(87, 25);
-            this.Password.TabIndex = 1;
-            this.Password.Text = "Password";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(108, 106);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(308, 31);
-            this.textBox1.TabIndex = 2;
-            // 
-            // textBox2_password
-            // 
-            this.textBox2_password.Location = new System.Drawing.Point(108, 169);
-            this.textBox2_password.Name = "textBox2_password";
-            this.textBox2_password.Size = new System.Drawing.Size(308, 31);
-            this.textBox2_password.TabIndex = 3;
+            this.button2_cancel.Location = new System.Drawing.Point(36, 237);
+            this.button2_cancel.Name = "button2_cancel";
+            this.button2_cancel.Size = new System.Drawing.Size(167, 61);
+            this.button2_cancel.TabIndex = 5;
+            this.button2_cancel.Text = "Canceel\\ Exit";
+            this.button2_cancel.UseVisualStyleBackColor = true;
+            this.button2_cancel.Click += new System.EventHandler(this.button2_cancel_Click);
             // 
             // button1_submit
             // 
@@ -98,15 +74,39 @@
             this.button1_submit.UseVisualStyleBackColor = true;
             this.button1_submit.Click += new System.EventHandler(this.button1_submit_Click);
             // 
-            // button2_cancel
+            // textBox2_password
             // 
-            this.button2_cancel.Location = new System.Drawing.Point(36, 237);
-            this.button2_cancel.Name = "button2_cancel";
-            this.button2_cancel.Size = new System.Drawing.Size(167, 61);
-            this.button2_cancel.TabIndex = 5;
-            this.button2_cancel.Text = "Canceel\\ Exit";
-            this.button2_cancel.UseVisualStyleBackColor = true;
-            this.button2_cancel.Click += new System.EventHandler(this.button2_cancel_Click);
+            this.textBox2_password.Location = new System.Drawing.Point(108, 169);
+            this.textBox2_password.Name = "textBox2_password";
+            this.textBox2_password.Size = new System.Drawing.Size(308, 31);
+            this.textBox2_password.TabIndex = 3;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(108, 106);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(308, 31);
+            this.textBox1.TabIndex = 2;
+            // 
+            // Password
+            // 
+            this.Password.AutoSize = true;
+            this.Password.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Password.Location = new System.Drawing.Point(13, 169);
+            this.Password.Name = "Password";
+            this.Password.Size = new System.Drawing.Size(87, 25);
+            this.Password.TabIndex = 1;
+            this.Password.Text = "Password";
+            // 
+            // label_UserID
+            // 
+            this.label_UserID.AutoSize = true;
+            this.label_UserID.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label_UserID.Location = new System.Drawing.Point(36, 111);
+            this.label_UserID.Name = "label_UserID";
+            this.label_UserID.Size = new System.Drawing.Size(70, 25);
+            this.label_UserID.TabIndex = 0;
+            this.label_UserID.Text = "UserID ";
             // 
             // FormAuthenticate
             // 

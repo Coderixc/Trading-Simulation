@@ -13,6 +13,16 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Chart.Controls" Version="4.7.2046" />
+    <PackageReference Include="ScottPlot.WinForms" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms.DataVisualization">
+      <HintPath>bin\Debug\net6.0-windows\System.Windows.Forms.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization.Design">
+      <HintPath>bin\Debug\net6.0-windows\System.Windows.Forms.DataVisualization.Design.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
