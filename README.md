@@ -13,7 +13,11 @@ This is the first screen of the trading simulation, where user credentials are v
 - **Exit/Cancel Button:** Event triggered when the user wants to exit or cancel the authentication process.
 
 <img width="263" alt="login Panel" src="https://github.com/Coderixc/Trading-Simulation/assets/40321363/b07dffad-8d9a-4e1e-b28d-ec30bd5864cf">
+
+
 After successfully validating the user credentials, users can proceed to explore the trading simulation. Refer to the documentation for detailed information on using the various features and functionalities.
+
+
 
 
 ### 2 Layout
@@ -52,4 +56,22 @@ The Trades Execution view contains different columns, each performing specific f
 - **ExitTime:** Exit Time of Trades  
 
 <img width="1326" alt="Welcome Screen" src="https://github.com/Coderixc/Trading-Simulation/assets/40321363/0e48185f-4a38-4681-ac92-2c3ce1f2d141">
+
+
+### 3 Layout
+## Tick Update and Trade Generation
+
+Once the user is allowed to start trading, ticks will be updated and visible in a text box. Users can generate new trades using the "Buy" and "Sell" buttons. The tick price will be generated randomly .
+## Buttons
+
+- **Buy:** Initiates the buying process, generating a random tick price.
+- **Sell:** Initiates the selling process, generating a random tick price.
+
+### Tick Update
+
+The updated tick price will be displayed in a text box, providing real-time information to the user about the market conditions.
+Explore the tick updating, trade generation, and P&L calculation features on the trading screen. Experiment with buying and selling to observe how the P&L is dynamically calculated based on market movements (Random function  will simulate Market real time feed)
+
+
+
 <img width="1067" alt="Trading screen 3" src="https://github.com/Coderixc/Trading-Simulation/assets/40321363/9f5763cf-d538-488e-a539-fa1bc2e7c7ce">
